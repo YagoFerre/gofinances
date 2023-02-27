@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
+import com.swmansion.gesturehandler.react.RNGestureHandlerEnabledRootView
 
 import expo.modules.ReactActivityDelegateWrapper;
 
@@ -36,7 +37,13 @@ public class MainActivity extends ReactActivity {
   @Override
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new ReactActivityDelegateWrapper(this, BuildConfig.IS_NEW_ARCHITECTURE_ENABLED,
-      new MainActivityDelegate(this, getMainComponentName())
+      new MainActivityDelegate(this, getMainComponentName()) {  
+        @Override // Linha que deve ser adicionada
+          protected ReactRootView createRootView() { // Linha que deve ser adicionada
+          return new RNGestureHandlerEnabledRootView(MainActivity.this); // Linha que deve ser adicionada
+        }
+      }
+      
     );
   }
 
